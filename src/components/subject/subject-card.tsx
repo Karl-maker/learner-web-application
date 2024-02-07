@@ -16,9 +16,9 @@ const SubjectCardDefault: Partial<SubjectCardType> = {
 /**
  * SubjectCard Component
  * @desc Renders a card with specified content inside.
- * @todo complete implementation
+ * @todo complete implementation by adding styling within card
  * @param option SubjectCardType - Options for the subject card.
- * @explanation children prop is designated for wrapping TSX
+ * @explanation children prop is designated for wrapping TSX 
  * @example 
  * <SubjectCard height={20} width={20}>
  *      { 
