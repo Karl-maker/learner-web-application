@@ -1,35 +1,35 @@
 import React from 'react';
 
 // Define the type for the subject card options
-export type SubjectCardType = {
+export type CardType = {
     height?: number;
     width?: number;
     children: React.ReactNode;
 }
 
 // Define default values for optional properties
-const SubjectCardDefault: Partial<SubjectCardType> = {
+const CardDefault: Partial<CardType> = {
     height: 20,
     width: 20,
 }
 
 /**
- * SubjectCard Component
+ * Card Component
  * @desc Renders a card with specified content inside.
  * @todo complete implementation by adding styling within card
- * @param option SubjectCardType - Options for the subject card.
+ * @param option CardType - Options for the card.
  * @explanation children prop is designated for wrapping TSX 
  * @example 
- * <SubjectCard height={20} width={20}>
+ * <Card height={20} width={20}>
  *      { 
  *          //JSX content
  *      }
  *      <p>Hello World</p>
- * </SubjectCard>
+ * </Card>
  */
-const SubjectCard: React.FC<SubjectCardType> = (option: SubjectCardType) => {
+const Card: React.FC<CardType> = (option: CardType) => {
     // Merge default options with provided options
-    const profileAvatarOptions = { ...SubjectCardDefault, ...option };
+    const cardOptions = { ...CardDefault, ...option };
 
     return (
         <div>
@@ -39,5 +39,5 @@ const SubjectCard: React.FC<SubjectCardType> = (option: SubjectCardType) => {
     );
 }
 
-export default SubjectCard;
+export default Card;
 
