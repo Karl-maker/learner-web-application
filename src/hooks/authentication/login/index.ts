@@ -13,7 +13,7 @@ const useLogin = () : UseLogin => {
     const login = async (email: string, password: string): Promise<void> => {
         setIsLoading(true);
         try {
-            const response = await fetch(`${API_URL}/api/v2/student/login`, {
+            const response = await fetch(`${API_URL}/api/v1/account/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -26,7 +26,10 @@ const useLogin = () : UseLogin => {
             }
 
             const data = await response.json();
-            setAccessTokenInLocalStorage(data.access_token);
+
+            console.log(data);
+            const access_token = "";
+            setAccessTokenInLocalStorage(access_token);
             setStatus('logged_in');
             setError(null);
         } catch (error) {
