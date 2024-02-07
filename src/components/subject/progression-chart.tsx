@@ -38,7 +38,7 @@ const ProgressionChart: React.FC<ProgressionChartType> = (option: ProgressionCha
 
     return (
         <div>
-            {/* JSX content for the profile avatar */}
+            {/* JSX content */}
         </div>
     );
 }

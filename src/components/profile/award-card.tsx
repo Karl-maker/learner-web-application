@@ -33,7 +33,7 @@ const AwardCard: React.FC<AwardCardType> = (option: AwardCardType) => {
 
     return (
         <div>
-            {/* JSX content for the profile avatar */}
+            {/* JSX content */}
         </div>
     );
 }
