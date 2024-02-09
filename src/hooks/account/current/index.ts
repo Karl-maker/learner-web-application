@@ -1,33 +1,38 @@
 import { useState } from "react";
-import { Account, UseGetCurrentAccount } from "@/types/account";
+import { Account, GetCurrentAccountResponse, UseGetCurrentAccount } from "@/types/account";
 import { api } from "@/utils/fetch";
+import { ApplicationError, determineErrorType } from "@/utils/error";
+import { checkErrorInstance } from "@/utils/instance/error";
 
 const useGetCurrentAccount = () : UseGetCurrentAccount => {
     const [account, setAccount] = useState<Account | null>(null);
-    const [error, setError] = useState<any>(null);
+    const [error, setError] = useState<ApplicationError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const get = async (): Promise<void> => {
         setIsLoading(true);
         try {
-            const response = await api<any>(`/api/v1/account`, {
+            const response = await api<GetCurrentAccountResponse>(`/api/v1/account`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
-            });
+            }, true);
 
-            console.log(response);
+            console.debug(`useGetCurrentAccount():`, response);
+
             const account: Account = {
-                email: "",
-                first_name: "",
-                last_name: "",
-                id: ""
+                email: response.data?.data.email || "",
+                first_name: response.data?.data.first_name || "",
+                last_name: response.data?.data.last_name || "",
+                id: response.data?.data.id || "",
+                type: response.data?.data.type || null
             };
+            
             setAccount(account);
             setError(null);
-        } catch (error) {
-            setError(error);
+        } catch (error: any) {
+            setError(checkErrorInstance(error));
             setAccount(null);
         } finally {
             setIsLoading(false);

@@ -1,5 +1,6 @@
 import config from "@/config";
 import { getAccessToken } from "../access-token";
+import { ForbiddenError, UnexpectedError } from "../error";
 
 interface ApiResponse<T> {
     data?: T;
@@ -9,25 +10,33 @@ const API_URL = config.api.BASE_URL; // Replace with your API base URL
 
 export const api = async <T>(
     endpoint: string,
-    options: RequestInit
+    options: RequestInit,
+    jwt: boolean = false
 ): Promise<ApiResponse<T>> => {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, {
             ...options,
-            headers: {
+            headers: jwt ? {
                 ...options.headers,
                 Authorization: `Bearer ${getAccessToken()}`
+            } : {
+                ...options.headers,
             }
         });
         if (response.ok) {
-            const data = await response.json();
+            const data = await response.json() as T;
             return { data };
-        } else if (response.status === 403) {
-            // Handle 403 error by refreshing the token
-            const accessToken = await refreshAccessToken();
         }
-        // Return error if request failed or token couldn't be refreshed
-        throw `Unexpected Issue`;
+        
+        if (response.status === 403) {
+            // Handle 403 error by refreshing the token
+            // const accessToken = await refreshAccessToken();
+
+            throw new ForbiddenError("", 'error');
+        }
+
+        throw new UnexpectedError(`Unexpected Issue Occured`, 'error');
+
     } catch (error) {
         throw error;
     }

@@ -1,19 +1,20 @@
 import { useState } from "react";
 import config from "@/config";
-import { UseLogin } from "@/types/authentication";
+import { LoginResponse, UseLogin } from "@/types/authentication";
 import { setAccessTokenInLocalStorage } from "@/utils/access-token";
-
-const API_URL = config.api.BASE_URL; // Replace with your API endpoint
+import { api } from "@/utils/fetch";
+import { ApplicationError, determineErrorType } from "@/utils/error";
+import { checkErrorInstance } from "@/utils/instance/error";
 
 const useLogin = () : UseLogin => {
-    const [error, setError] = useState<any>(null);
-    const [status, setStatus] = useState<'pending' | 'logged_in' | 'logged_out'>('pending');
+    const [error, setError] = useState<ApplicationError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
     const login = async (email: string, password: string): Promise<void> => {
         setIsLoading(true);
         try {
-            const response = await fetch(`${API_URL}/api/v1/account/login`, {
+            const response = await api<LoginResponse>(`/api/v1/account/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -21,26 +22,20 @@ const useLogin = () : UseLogin => {
                 body: JSON.stringify({ email, password })
             });
 
-            if (!response.ok) {
-                throw new Error("Login failed");
-            }
+            console.debug(`useLogin():`, response);
 
-            const data = await response.json();
-
-            console.log(data);
-            const access_token = "";
+            const access_token = response.data?.tokens.access_token || "";
             setAccessTokenInLocalStorage(access_token);
-            setStatus('logged_in');
+            setIsLoggedIn(true);
             setError(null);
-        } catch (error) {
-            setStatus('logged_out');
-            setError(error);
+        } catch (error: any) {
+            setError(checkErrorInstance(error));
         } finally {
             setIsLoading(false);
         }
     };
 
-    return { status, error, isLoading, login };
+    return { isLoggedIn, error, isLoading, login };
 };
 
 export default useLogin;
