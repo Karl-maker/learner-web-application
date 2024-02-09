@@ -1,6 +1,6 @@
 import config from "@/config";
 import { getAccessToken } from "../access-token";
-import { ForbiddenError, UnexpectedError } from "../error";
+import { ForbiddenError, UnAuthorizedError, UnexpectedError } from "../error";
 
 interface ApiResponse<T> {
     data?: T;
@@ -28,13 +28,13 @@ export const api = async <T>(
             return { data };
         }
         
-        if (response.status === 403) {
-            // Handle 403 error by refreshing the token
-            // const accessToken = await refreshAccessToken();
+        console.error(endpoint, await response.json());
 
-            throw new ForbiddenError("", 'error');
-        }
+        const details = await response.json();
 
+        if (response.status === 403) throw new ForbiddenError(details.error?.message || "forbidden", 'error');
+        if(response.status === 401) throw new UnAuthorizedError(details.error?.message || "unauthorized", 'error')
+        
         throw new UnexpectedError(`Unexpected Issue Occured`, 'error');
 
     } catch (error) {

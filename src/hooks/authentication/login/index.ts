@@ -31,7 +31,7 @@ const useLogin = () : UseLogin => {
                 body: JSON.stringify({ email, password })
             });
 
-            console.debug(`useLogin():`, response);
+            console.log(`useLogin():`, response);
 
             const access_token = response.data?.tokens.access_token || "";
             setAccessTokenInLocalStorage(access_token);

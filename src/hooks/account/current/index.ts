@@ -26,7 +26,7 @@ const useGetCurrentAccount = () : UseGetCurrentAccount => {
                 }
             }, true);
 
-            console.debug(`useGetCurrentAccount():`, response);
+            console.log(`useGetCurrentAccount():`, response);
 
             const account: Account = {
                 email: response.data?.data.email || "",

@@ -19,6 +19,14 @@ export class UnexpectedError extends ApplicationError {
     
 }
 
+export class UnAuthorizedError extends ApplicationError {
+    
+    constructor(message: string, severity: Severity) {
+        super(message, severity, 401);
+    }
+    
+}
+
 export class ForbiddenError extends ApplicationError {
 
     constructor(message: string, severity: Severity) {

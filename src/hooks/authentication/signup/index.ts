@@ -39,7 +39,7 @@ const useSignUp = () : UseSignUp => {
                 })
             });
 
-            console.debug(`useSignUp():`, response);
+            console.log(`useSignUp():`, response);
 
             setResult(response.data?.message || null);
             setError(null);
