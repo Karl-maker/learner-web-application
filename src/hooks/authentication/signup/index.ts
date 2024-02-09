@@ -3,6 +3,15 @@ import { SignUpResponse, UseSignUp } from "@/types/authentication";
 import { api } from "@/utils/fetch";
 import { checkErrorInstance } from "@/utils/instance/error";
 
+/**
+ * @param isLoading value true if request is still loading
+ * @param error a ApplicationError or null
+ * @param signup method to activate signup for student by default
+ * @param result a simple string of response
+ * 
+ * @note after successful login the application can use tokens
+ */
+
 const useSignUp = () : UseSignUp => {
     const [error, setError] = useState<Error | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);

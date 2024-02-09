@@ -6,6 +6,15 @@ import { api } from "@/utils/fetch";
 import { ApplicationError, determineErrorType } from "@/utils/error";
 import { checkErrorInstance } from "@/utils/instance/error";
 
+/**
+ * @param isLoading value true if request is still loading
+ * @param error a ApplicationError or null
+ * @param login method to activate login
+ * @param isLoggedIn if login was successful
+ * 
+ * @note after successful login the application can use tokens
+ */
+
 const useLogin = () : UseLogin => {
     const [error, setError] = useState<ApplicationError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);

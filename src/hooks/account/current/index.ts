@@ -4,6 +4,13 @@ import { api } from "@/utils/fetch";
 import { ApplicationError, determineErrorType } from "@/utils/error";
 import { checkErrorInstance } from "@/utils/instance/error";
 
+/**
+ * @param isLoading value true if request is still loading
+ * @param error a ApplicationError or null
+ * @param get method to activate getting the current account details
+ * @param account The current account details 
+ */
+
 const useGetCurrentAccount = () : UseGetCurrentAccount => {
     const [account, setAccount] = useState<Account | null>(null);
     const [error, setError] = useState<ApplicationError | null>(null);
