@@ -35,6 +35,14 @@ export class ForbiddenError extends ApplicationError {
     
 }
 
+export class NotFoundError extends ApplicationError {
+
+    constructor(message: string, severity: Severity) {
+        super(message, severity, 404);
+    }
+    
+}
+
 export function determineErrorType(error: any): ApplicationError {
 
 

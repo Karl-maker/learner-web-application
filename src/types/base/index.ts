@@ -1,4 +1,6 @@
+import { ApplicationError } from "@/utils/error";
+
 export type UseBase = {
-    error: any; 
+    error: ApplicationError | null; 
     isLoading: boolean;
 }

@@ -14,9 +14,15 @@ export default () => {
 
     useEffect(() => {
         (async () => {
-            if(loginAccount.isLoggedIn) alert(`Login Success`)
+            if(loginAccount.isLoggedIn) alert(`Login Success`);
         })()
     }, [loginAccount.isLoggedIn]);
+
+    useEffect(() => {
+        (async () => {
+            if(loginAccount.error) alert(loginAccount.error);
+        })()
+    }, [loginAccount.error]);
 
     return <LoginCard 
         email={email}

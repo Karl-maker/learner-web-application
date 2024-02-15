@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SignUpResponse, UseSignUp } from "@/types/authentication";
 import { api } from "@/utils/fetch";
 import { checkErrorInstance } from "@/utils/instance/error";
+import { ApplicationError } from "@/utils/error";
 
 /**
  * @param isLoading value true if request is still loading
@@ -13,7 +14,7 @@ import { checkErrorInstance } from "@/utils/instance/error";
  */
 
 const useSignUp = () : UseSignUp => {
-    const [error, setError] = useState<Error | null>(null);
+    const [error, setError] = useState<ApplicationError | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [result, setResult] = useState<string | null>(null);
 

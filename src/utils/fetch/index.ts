@@ -1,6 +1,6 @@
 import config from "@/config";
 import { getAccessToken } from "../access-token";
-import { ForbiddenError, UnAuthorizedError, UnexpectedError } from "../error";
+import { ForbiddenError, NotFoundError, UnAuthorizedError, UnexpectedError } from "../error";
 
 interface ApiResponse<T> {
     data?: T;
@@ -32,8 +32,9 @@ export const api = async <T>(
 
         const details = await response.json();
 
-        if (response.status === 403) throw new ForbiddenError(details.error?.message || "forbidden", 'error');
+        if(response.status === 403) throw new ForbiddenError(details.error?.message || "forbidden", 'error');
         if(response.status === 401) throw new UnAuthorizedError(details.error?.message || "unauthorized", 'error')
+        if(response.status === 404) throw new NotFoundError(details.error?.message || "not found", 'error')
         
         throw new UnexpectedError(`Unexpected Issue Occured`, 'error');
 
