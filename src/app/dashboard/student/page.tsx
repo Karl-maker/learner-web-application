@@ -1,6 +1,6 @@
 "use client"
 
-import useGetStudentById from "@/hooks/student/get-by-id";
+import useGetCurrentStudent from "@/hooks/student/get-current";
 import { useEffect } from "react";
 
 /**
@@ -9,22 +9,15 @@ import { useEffect } from "react";
  */
 
 
-export default function StudentProfilePage({ params }: { params: { id: string } }) {
-    // const { navigation, setNavigation } = useContext(NavigationLayoutContext);
-    // const updateDashboard = () => {
-    //     setNavigation({
-    //         ...navigation,
-    //         precentage: navigation.precentage + 0.1,
-    //     })
-    // }
+export default function CurrentStudentProfilePage() {
 
-    const getStudentById = useGetStudentById();
+    const getStudentById = useGetCurrentStudent();
 
     useEffect(() => {
         (async () => {
-            getStudentById.get(params.id);
+            getStudentById.get();
         })();
-    }, [params.id]);
+    }, []);
 
     useEffect(() => {
         (async () => {
