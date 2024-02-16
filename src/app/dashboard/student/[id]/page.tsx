@@ -10,14 +10,6 @@ import { useEffect } from "react";
 
 
 export default function StudentProfilePage({ params }: { params: { id: string } }) {
-    // const { navigation, setNavigation } = useContext(NavigationLayoutContext);
-    // const updateDashboard = () => {
-    //     setNavigation({
-    //         ...navigation,
-    //         precentage: navigation.precentage + 0.1,
-    //     })
-    // }
-
     const getStudentById = useGetStudentById();
 
     useEffect(() => {

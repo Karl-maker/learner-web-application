@@ -45,6 +45,8 @@ export default function QuizPage({ params }: { params: { id: string } }) {
 
     useEffect(() => {
         if (!quizQuestionResult) return;
+        if(completedQuiz) return;
+        setCompletedQuiz(quizQuestionResult.complete)
         updateQuizById.update(params.id, quizQuestionResult);
     }, [quizQuestionResult]);
 
@@ -61,12 +63,13 @@ export default function QuizPage({ params }: { params: { id: string } }) {
     };
 
     const onComplete = () => {
+        if(completedQuiz) return;
         setQuizQuestionResult(quizQuestion => quizQuestion ? { ...quizQuestion, complete: true } : null);
-        setCompletedQuiz(true);
     };
 
     const handleUpdateAnswer = async (questionIndex: number, correct: boolean) => {
         if (!quizQuestionResult || !quizQuestionResult.questions) return;
+        if(completedQuiz) return;
 
         const newQuizQuestionResults = [...quizQuestionResult.questions];
         const question = newQuizQuestionResults[questionIndex];
