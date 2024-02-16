@@ -1,0 +1,1 @@
+export type MediaTypes = "video" | "image" | "audio" | "document" | "text";

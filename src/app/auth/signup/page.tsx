@@ -1,6 +1,6 @@
 "use client"
 
-import SignUpCard from "@/components/authentication/singup-card";
+import SignUpCard from "@/components/authentication/signup-card";
 import useSignUp from "@/hooks/authentication/signup"
 import { useEffect, useState } from "react"
 
