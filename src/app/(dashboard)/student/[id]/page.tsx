@@ -1,7 +1,26 @@
-"use client"
+"use server"
 
-import useGetStudentById from "@/hooks/student/get-by-id";
-import { useEffect } from "react";
+import { GetStudentByIdResponse, Student } from "@/types/student";
+import { service } from "@/utils/fetch";
+import { checkErrorInstance } from "@/utils/instance/error";
+
+const getStudentById = async (id: string): Promise<Student | null> => {
+    try{
+        const response = await service<GetStudentByIdResponse>(`/api/v1/student/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+        console.log(`getStudentById():`, response);
+        const student: Student | null = response.data?.data || null;
+        return student;
+    } catch(err) {
+        throw checkErrorInstance(err);
+    }
+}
+
 
 /**
  * @desc student profiles are here and can display information about students
@@ -9,23 +28,10 @@ import { useEffect } from "react";
  */
 
 
-export default function StudentProfilePage({ params }: { params: { id: string } }) {
-    const getStudentById = useGetStudentById();
-
-    useEffect(() => {
-        (async () => {
-            getStudentById.get(params.id);
-        })();
-    }, [params.id]);
-
-    useEffect(() => {
-        (async () => {
-            if(getStudentById.error) alert(getStudentById.error.message);
-        })();
-    }, [getStudentById.error]);
-
+export default async function StudentProfilePage({ params }: { params: { id: string } }) {
+    const student = await getStudentById(params.id);
 
     return (
-        <div>{getStudentById.student === null ? 'no student' : `Student's School: ${getStudentById.student.school?.name}`}</div>
+        <div>{student === null ? 'no student' : `Student's School: ${student.school?.name}`}</div>
     );
 }
