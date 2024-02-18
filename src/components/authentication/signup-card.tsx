@@ -57,7 +57,7 @@ const SignUpCard: React.FC<SignUpCardType> = ({
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input
+                <input 
                     type="text"
                     value={firstName}
                     onChange={handleFirstNameChange}
