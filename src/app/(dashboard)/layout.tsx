@@ -3,7 +3,7 @@
 import Header from "@/components/layout/header/context";
 import Navigation from "@/components/layout/nav/context";
  
-export default function DashboardLayout({
+export default async function DashboardLayout({
     children,
   }: Readonly<{
     children: React.ReactNode;
