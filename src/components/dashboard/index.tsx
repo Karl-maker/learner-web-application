@@ -19,7 +19,26 @@ export default function Dashboard () {
             precentage: 0,
             display: false,
             items: {
-                
+                profile: {
+                    name: "Profile",
+                    alt: "Student Profile",
+                    path: "/profile",
+                    disable: false,
+                    icon: {
+                        active: <></>,
+                        inactive: <></>
+                    },
+                },
+                settings: {
+                    name: "Settings",
+                    alt: "Settings",
+                    path: "/setting",
+                    disable: false,
+                    icon: {
+                        active: <></>,
+                        inactive: <></>
+                    },
+                }
             },
             current: ""
         }}/>
