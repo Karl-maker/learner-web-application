@@ -2,7 +2,6 @@ import { Navigation } from "@/types/navigation";
 
 export type NavigationBarOptions = {
     options: Navigation;
-    children: React.ReactNode;
 }
 
 const NavigationBar: React.FC<NavigationBarOptions> = (input: NavigationBarOptions) => {
@@ -12,7 +11,6 @@ const NavigationBar: React.FC<NavigationBarOptions> = (input: NavigationBarOptio
             <nav>
                 {/* JSX content */}
             </nav>
-            {input.children}
         </div>
     );
 }

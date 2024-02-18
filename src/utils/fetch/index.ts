@@ -27,14 +27,13 @@ export const api = async <T>(
             const data = await response.json() as T;
             return { data };
         }
-        
-        console.error(endpoint, await response.json());
 
         const details = await response.json();
+        console.error(endpoint, details);
 
-        if(response.status === 403) throw new ForbiddenError(details.error?.message || "forbidden", 'error');
-        if(response.status === 401) throw new UnAuthorizedError(details.error?.message || "unauthorized", 'error')
-        if(response.status === 404) throw new NotFoundError(details.error?.message || "not found", 'error')
+        if(details.error?.status === 403) throw new ForbiddenError(details.error?.message || "forbidden", 'error');
+        if(details.error?.status === 401) throw new UnAuthorizedError(details.error?.message || "unauthorized", 'error')
+        if(details.error?.status === 404) throw new NotFoundError(details.error?.message || "not found", 'error')
         
         throw new UnexpectedError(`Unexpected Issue Occured`, 'error');
 
