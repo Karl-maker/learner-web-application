@@ -1,7 +1,6 @@
 "use server"
 
-import Header from "@/components/layout/header/context";
-import Navigation from "@/components/layout/nav/context";
+import Dashboard from "@/components/dashboard";
  
 export default async function DashboardLayout({
     children,
@@ -11,9 +10,8 @@ export default async function DashboardLayout({
   
     return (
         <>
-            {/* navigation / bav bar code here which uses dashboard.navigation for the value */}
-            <Navigation/>
-            <Header/>
+            {/* dashboard deals with context of header and nav bar */}
+            <Dashboard/>
             <main>
                 {children}
             </main>
