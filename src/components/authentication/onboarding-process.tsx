@@ -26,12 +26,15 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
     };
 
     return (
-        <input 
-            type="text" 
-            // ..school?. the ? prevents errors by allowing us to then use || (OR) then a default value. This is because some values may not exist
-            value={params.student.school?.name || ""} 
-            onChange={handleChangeSchoolName} 
-            placeholder="Enter School Name" 
-        />
+        <>
+            <input 
+                type="text" 
+                // ..school?. the ? prevents errors by allowing us to then use || (OR) then a default value. This is because some values may not exist
+                value={params.student.school?.name || ""} 
+                onChange={handleChangeSchoolName} 
+                placeholder="Enter School Name" 
+            />
+            <button onClick={params.onComplete}>Submit</button>
+        </>
     );
 }

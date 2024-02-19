@@ -1,19 +1,19 @@
 "use client"
 
-import { UserAuthContext } from "@/app/template";
 import OnboardingProcess from "@/components/authentication/onboarding-process";
 import useCreateCurrentStudent from "@/hooks/student/create-current";
 import { Student } from "@/types/student";
-import { useContext, useEffect, useState } from "react"
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react"
 
 /**
  * @note The "Start By Telling Me About Yourself" page
  */
 
 export default function Onboard() {
-
     const [student, setStudent] = useState<Omit<Student, 'account_id' | 'id'>>({});
     const [page, setPage] = useState<number>(1);
+    const router = useRouter();
     const createCurrentStudent = useCreateCurrentStudent(); 
 
     const onComplete = () => {
@@ -25,6 +25,13 @@ export default function Onboard() {
             });
         })();
     };
+
+    useEffect(() => {
+        (() => {
+            if(!createCurrentStudent.student) return;
+            router.push('/home')
+        })();
+    }, [createCurrentStudent.student])
 
     return <>{
         createCurrentStudent.isLoading ? <p>Loading</p> :

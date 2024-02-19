@@ -29,10 +29,10 @@ export default function QuizPage() {
     }, [generateQuiz.quiz]);
 
     return (
-        <div>
+        <>
             <button onClick={submit} disabled={generateQuiz.isLoading}>
                 { generateQuiz.isLoading ? 'Loading..' : 'Start Quiz' }
             </button>
-        </div>
+        </>
     );
 }

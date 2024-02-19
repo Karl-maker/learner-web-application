@@ -2,7 +2,7 @@
 
 import SignUpCard from "@/components/authentication/signup-card";
 import useSignUp from "@/hooks/authentication/signup"
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 export default () => {
