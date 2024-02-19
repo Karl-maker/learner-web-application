@@ -2,16 +2,16 @@ import { UseBase } from "../base";
 
 export type Student = {
     id: string;
+    account_id: string; // FK
     username?: string;
-    account_id: string; 
     display_name?: string;
     school?: {
         name?: string;
     };
     location?: {
         country: string;
-        district: string;
     };
+    birth_of_date?: Date;
     grade?: number;
     profile?: {
         picture?: {
@@ -60,12 +60,7 @@ export type UseUpdateCurrentStudent = UseBase & {
     update: (input: UpdateCurrentStudentInput) => Promise<void>;
 }
 
-export type CreateCurrentStudentInput = { 
-    username?: string; 
-    school?: {
-        name: string;
-    };
-}
+export type CreateCurrentStudentInput = Omit<Student, 'id' | 'account_id'>;
 
 export type UpdateCurrentStudentInput = { 
     username?: string;
