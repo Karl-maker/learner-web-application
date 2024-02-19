@@ -10,12 +10,17 @@ export default () => {
     const [password, setPassword] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
     const [lastName, setLastName] = useState<string>('');
+    const [isClient, setIsClient] = useState(false);
     const router = useRouter();
 
     const signupAccount = useSignUp();
     const submit = () => {
         signupAccount.signup(firstName, lastName, email, password, 'student');
     }
+
+    useEffect(() => {
+        setIsClient(true);
+      }, []);
 
     useEffect(() => {
         (async () => {
@@ -29,6 +34,7 @@ export default () => {
         })()
     }, [signupAccount.error]);
 
+    if (!isClient) return <p>Loading</p>;
     return <SignUpCard
         email={email}
         setEmail={setEmail}

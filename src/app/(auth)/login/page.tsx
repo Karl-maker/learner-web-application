@@ -12,9 +12,14 @@ export default () => {
     const [password, setPassword] = useState<string>('')
     const router = useRouter();
     const loginAccount = useLogin();
+    const [isClient, setIsClient] = useState(false);
     const submit = () => {
         loginAccount.login(email, password);
     }
+
+    useEffect(() => {
+      setIsClient(true);
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -37,6 +42,7 @@ export default () => {
         })()
     }, [loginAccount.error]);
 
+    if (!isClient) return <p>Loading</p>;
     return <LoginCard 
         email={email}
         password={password}

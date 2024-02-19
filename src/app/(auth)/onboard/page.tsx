@@ -14,6 +14,7 @@ export default function Onboard() {
     const [student, setStudent] = useState<Omit<Student, 'account_id' | 'id'>>({});
     const [page, setPage] = useState<number>(1);
     const router = useRouter();
+    const [isClient, setIsClient] = useState(false);
     const createCurrentStudent = useCreateCurrentStudent(); 
 
     const onComplete = () => {
@@ -27,11 +28,17 @@ export default function Onboard() {
     };
 
     useEffect(() => {
+        setIsClient(true);
+      }, []);
+
+    useEffect(() => {
         (() => {
             if(!createCurrentStudent.student) return;
             router.push('/home')
         })();
     }, [createCurrentStudent.student])
+
+    if (!isClient) return <p>Loading</p>;
 
     return <>{
         createCurrentStudent.isLoading ? <p>Loading</p> :
