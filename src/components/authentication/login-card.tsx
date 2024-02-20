@@ -40,7 +40,7 @@ const LoginCard: React.FC<LoginCardType> = ({
 
   return (
     <div className="flex justify-center h-screen items-center">
-      <div className="">
+      <div>
         <form
           className="flex flex-col gap-2 border-solid border bg-primary p-8 text-white sm:max-auto w-[800px] h-[600px] justify-center rounded-xl"
           onSubmit={handleSubmit}

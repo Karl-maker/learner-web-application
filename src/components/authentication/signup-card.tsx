@@ -77,16 +77,15 @@ const SignUpCard: React.FC<SignUpCardType> = ({
               placeholder="First name"
             />
           </div>
-          <div className="mb-4">
-            <h1 className="text-xl font-bold py-1"> Last Name </h1>
-            <input
-              className="w-full p-2 rounded border border-secondary focus:outline-none focus:border-primary focus:border-2"
-              type="text"
-              value={lastName}
-              onChange={handleLastNameChange}
-              placeholder="Last name"
-            />
-          </div>
+
+          <h1 className="text-xl font-bold py-1"> Last Name </h1>
+          <input
+            className=" mb-4 w-full p-2 rounded border border-secondary focus:outline-none focus:border-primary focus:border-2"
+            type="text"
+            value={lastName}
+            onChange={handleLastNameChange}
+            placeholder="Last name"
+          />
           <div className="mb-4">
             <h1 className="text-xl font-bold py-1"> Email </h1>
             <input
