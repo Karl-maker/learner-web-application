@@ -17,10 +17,16 @@ export default () => {
         loginAccount.login(email, password);
     }
 
+    /**
+     * @desc Prevent content change before it reaches browser OR still on server
+     */
     useEffect(() => {
       setIsClient(true);
     }, []);
 
+    /**
+     * @desc Check if user has student account already
+     */
     useEffect(() => {
         (async () => {
             if(!loginAccount.isLoggedIn) return;
@@ -31,11 +37,14 @@ export default () => {
                 }
             }, true);
 
-            if(!result.data?.data) router.push("/onboard");
-            router.push("/home");
+            if(Object.keys(result.data || {}).length === 0) router.push("/onboard");
+            if(result.data?.data) router.push("/home");
         })()
     }, [loginAccount.isLoggedIn]);
 
+    /**
+     * @desc Error
+     */
     useEffect(() => {
         (async () => {
             if(loginAccount.error) alert(loginAccount.error);
@@ -43,6 +52,7 @@ export default () => {
     }, [loginAccount.error]);
 
     if (!isClient) return <p>Loading</p>;
+    
     return <LoginCard 
         email={email}
         password={password}

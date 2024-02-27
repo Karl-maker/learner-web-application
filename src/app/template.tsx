@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { createContext } from 'react';
 import { useRouter } from 'next/navigation'
 import { User, UserContext } from '@/types/user';
@@ -18,7 +18,7 @@ export default function MainTemplate({ children }: { children: React.ReactNode }
     const pathname = usePathname()
     const router = useRouter();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         (async () => {
             console.log('MainTemplate: Render')
             const getCurrentAccountResponse = await api<GetCurrentAccountResponse>(`/api/v1/account`, {
@@ -53,10 +53,8 @@ export default function MainTemplate({ children }: { children: React.ReactNode }
                 }
             }, true);
 
-            const pathsToCheck = ['home', 'quiz'];
-
             // Check if the current path is not included in the list of paths
-            if (!getCurrentStudentResponse.data?.data && pathsToCheck.includes(pathname)) router.push("/onboard");
+            if (!getCurrentStudentResponse.data?.data) return
             
             const student = getCurrentStudentResponse.data?.data;
 
