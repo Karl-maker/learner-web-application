@@ -16,9 +16,9 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
             console.log('DashboardTemplate: Render');
             const pathsToCheck = ['/home', '/quiz'];
             // Check if the current path is not included in the list of paths
-            if (pathsToCheck.includes(pathname) && !user.details?.student_id) router.push("/onboard");
+            if (user.authenticated && pathsToCheck.includes(pathname) && !user.details?.student_id) router.push("/onboard");
         })();
-    }, [user]);
+    }, [user.details]);
 
     return (
         <>

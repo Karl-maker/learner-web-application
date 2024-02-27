@@ -1,22 +1,18 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { createContext } from 'react';
-import { useRouter } from 'next/navigation'
 import { User, UserContext } from '@/types/user';
 import { defaultUser, defaultUserContext } from '@/constants/user';
 import { GetCurrentAccountResponse } from '@/types/account';
 import { api } from '@/utils/fetch';
 import { GetCurrentStudentResponse } from '@/types/student';
-import { usePathname } from 'next/navigation'
 
 export const UserAuthContext = createContext<UserContext>(defaultUserContext);
 
 export default function MainTemplate({ children }: { children: React.ReactNode }) {
 
     const [user, setUser] = useState<User>(defaultUser);
-    const pathname = usePathname()
-    const router = useRouter();
 
     useLayoutEffect(() => {
         (async () => {

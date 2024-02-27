@@ -4,7 +4,6 @@ import { UserAuthContext } from "@/app/template";
 import Header from "./header";
 import Navigation from "./nav";
 import { useContext, useEffect, useState } from "react";
-import { NavigationItem } from "@/types/navigation";
 import { usePathname } from "next/navigation";
 
 export default function Dashboard () {

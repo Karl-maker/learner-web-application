@@ -24,7 +24,7 @@ export default function QuizPage() {
 
     useEffect(() => {
         (async () => {
-            if(generateQuiz.quiz?.id) router.push(`/dashboard/quiz/${generateQuiz.quiz?.id}`)
+            if(generateQuiz.quiz?.id) router.push(`/quiz/${generateQuiz.quiz?.id}`)
         })();
     }, [generateQuiz.quiz]);
 

@@ -29,13 +29,11 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
   const handleChangeDateOfBirth = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    if(!event.target.value) return;
     // Update the school.name attribute in the student object
     params.setStudent((prevStudent) => ({
       ...prevStudent,
-      school: {
-        ...prevStudent.school,
-        name: event.target.value,
-      },
+      birth_of_date: new Date(event.target.value),
     }));
   };
 
@@ -43,10 +41,9 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
     // Update the school.name attribute in the student object
     params.setStudent((prevStudent) => ({
       ...prevStudent,
-      school: {
-        ...prevStudent.school,
-        name: event.target.value,
-      },
+      location: {
+        country: event.target.value,
+      }
     }));
   };
 
@@ -54,10 +51,7 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
     // Update the school.name attribute in the student object
     params.setStudent((prevStudent) => ({
       ...prevStudent,
-      school: {
-        ...prevStudent.school,
-        name: event.target.value,
-      },
+      grade: Number(event.target.value),
     }));
   };
 
@@ -93,7 +87,7 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
             <input
               id="country"
               type="text"
-              value={params.student.country || ""}
+              value={params.student.location?.country || ""}
               onChange={handleChangeCountry}
               className="bg-primary w-full p-2 border-b-2 text-white border-tertiary focus:outline-none  focus:border-secondary"
               placeholder="Country"
@@ -106,7 +100,7 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
             <input
               id="dateOfBirth"
               type="date"
-              value={params.student.dateOfBirth || ""}
+              value={String(params.student.birth_of_date) || ""}
               onChange={handleChangeDateOfBirth}
               className="bg-primary w-full p-2 border-b-2 text-white border-tertiary focus:outline-none  focus:border-secondary"
               placeholder="Date Of Birth"
