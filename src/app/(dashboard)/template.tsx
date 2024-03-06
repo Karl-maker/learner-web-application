@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 import { UserAuthContext } from '../template';
@@ -11,7 +11,7 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
     const pathname = usePathname()
     const router = useRouter();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         (async () => {
             console.log('DashboardTemplate: Render');
             const pathsToCheck = ['/home', '/quiz'];
