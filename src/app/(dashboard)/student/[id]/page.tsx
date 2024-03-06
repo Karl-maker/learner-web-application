@@ -23,12 +23,15 @@ const getStudentById = async (id: string): Promise<Student | null> => {
     }
 }
 
+export const metadata = {
+    title: "Student Details - CXC & CSEC Student Learning App",
+    description: "Explore detailed information about students using our learning platform. Empower yourself for success in CXC and CSEC exams by accessing student profiles, progress tracking, and more!",
+};  
 
 /**
  * @desc student profiles are here and can display information about students
  * @todo complete styling 
  */
-
 
 export default async function StudentProfilePage({ params }: { params: { id: string } }) {
 
@@ -40,8 +43,11 @@ export default async function StudentProfilePage({ params }: { params: { id: str
         );
 
     } catch(err) {
-        return <div>
-            <p>Student</p>
-        </div>
+
+        return (
+            <div>
+                <p>Apologies, we couldn't retrieve the student at the moment. Please try again later.</p>
+            </div>
+        );
     }
 }

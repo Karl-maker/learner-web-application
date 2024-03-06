@@ -27,6 +27,11 @@ const getAllSubjects = async (params: GetManyQueryParams<Subject>): Promise<{ su
     }
 }
 
+export const metadata = {
+    title: "Subject Listing - CXC & CSEC Student Learning App",
+    description: "Discover a comprehensive list of subjects provided by our learning platform. Empower yourself for success in CXC and CSEC exams with access to study materials, practice tests, and more!",
+};
+
 /**
  * @desc subject list 
  * @todo complete styling 
@@ -57,7 +62,11 @@ export default async function CurrentStudentProfilePage() {
         );
 
     } catch(err) {
-        return <div><p>Cannot Get Subjects</p></div>
+        return (
+            <div>
+                <p>Apologies, we couldn't retrieve the subjects at the moment. Please try again later.</p>
+            </div>
+        );
     }
 
 }
