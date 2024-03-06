@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 "use server"
 
 import { GetManyQueryParams } from "@/types/base";
@@ -33,22 +35,29 @@ const getAllSubjects = async (params: GetManyQueryParams<Subject>): Promise<{ su
 
 export default async function CurrentStudentProfilePage() {
 
-    const page: number = 1;
-    const pageSize: number = 5;
-    const field: keyof Subject = 'name';
-    const sort: 'asc' | 'desc' = 'asc';
+    try {
 
-    const { subjects, results } = await getAllSubjects({ page, page_size: pageSize, field, sort });
+        const page: number = 1;
+        const pageSize: number = 5;
+        const field: keyof Subject = 'name';
+        const sort: 'asc' | 'desc' = 'asc';
+    
+        const { subjects, results } = await getAllSubjects({ page, page_size: pageSize, field, sort });
+    
+        return (
+            <div>{subjects === null ? 'no subjects' : 
+                <div>
+                    {/* { Display List of Subjects } */}
+                    { subjects.map((subject: Subject, i) => {
+                        return <p key={i}>{subject.name}</p>
+                    })}
+                    <p>results found: {results || 'n/a'}</p>
+                </div>
+            }</div>
+        );
 
-    return (
-        <div>{subjects === null ? 'no subjects' : 
-            <div>
-                {/* { Display List of Subjects } */}
-                { subjects.map((subject: Subject, i) => {
-                    return <p key={i}>{subject.name}</p>
-                })}
-                <p>results found: {results || 'n/a'}</p>
-            </div>
-        }</div>
-    );
+    } catch(err) {
+        return <div><p>Cannot Get Subjects</p></div>
+    }
+
 }

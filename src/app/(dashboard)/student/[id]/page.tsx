@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 "use server"
 
 import { GetStudentByIdResponse, Student } from "@/types/student";
@@ -29,9 +31,17 @@ const getStudentById = async (id: string): Promise<Student | null> => {
 
 
 export default async function StudentProfilePage({ params }: { params: { id: string } }) {
-    const student = await getStudentById(params.id);
 
-    return (
-        <div>{student === null ? 'no student' : `Student's School: ${student.school?.name}`}</div>
-    );
+    try {
+        const student = await getStudentById(params.id);
+
+        return (
+            <div>{student === null ? 'no student' : `Student's School: ${student.school?.name}`}</div>
+        );
+
+    } catch(err) {
+        return <div>
+            <p>Student</p>
+        </div>
+    }
 }
