@@ -5,7 +5,7 @@ import useSignUp from "@/hooks/authentication/signup"
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
-export default () => {
+const SignUpPage = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [firstName, setFirstName] = useState<string>('');
@@ -20,7 +20,7 @@ export default () => {
 
     useEffect(() => {
         setIsClient(true);
-      }, []);
+    }, []);
 
     useEffect(() => {
         (async () => {
@@ -48,3 +48,7 @@ export default () => {
         onSubmit={submit}
     />
 }
+
+SignUpPage.displayName = 'SignUpPage';
+
+export default SignUpPage;

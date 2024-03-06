@@ -44,8 +44,8 @@ export default async function CurrentStudentProfilePage() {
         <div>{subjects === null ? 'no subjects' : 
             <div>
                 {/* { Display List of Subjects } */}
-                { subjects.map((subject: Subject) => {
-                    return <p>{subject.name}</p>
+                { subjects.map((subject: Subject, i) => {
+                    return <p key={i}>{subject.name}</p>
                 })}
                 <p>results found: {results || 'n/a'}</p>
             </div>
