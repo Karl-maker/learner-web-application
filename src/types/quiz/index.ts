@@ -16,7 +16,7 @@ export type QuizQuestion = {
     id: string;
     possible_marks: number;
     earned_marks: number;
-    completed: boolean;
+    complete: boolean;
     message?: string;
     tier_level: number;
 }

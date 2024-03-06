@@ -1,8 +1,9 @@
+import React, { useEffect, useState } from 'react';
 import { MultipleChoice, Question } from '@/types/question';
 import { QuizQuestion } from '@/types/quiz';
-import React from 'react';
 
 export type QuestionQuizCardType = {
+    index: number;
     height?: number;
     width?: number;
     question: Question;
@@ -28,6 +29,8 @@ const QuestionQuizCard: React.FC<QuestionQuizCardType> = (option: QuestionQuizCa
     // Merge default options with provided options
     const questionQuizOptions = { ...QuestionQuizCardDefault, ...option };
 
+    const [shuffledChoices, setShuffledChoices] = useState<MultipleChoice[]>([]);
+
     // Function to shuffle an array
     const shuffleArray = (array: MultipleChoice[]) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -37,16 +40,22 @@ const QuestionQuizCard: React.FC<QuestionQuizCardType> = (option: QuestionQuizCa
         return array;
     };
 
+    useEffect(() => {
+        if (option.question.multiple_choice) {
+            const shuffled = shuffleArray(option.question.multiple_choice);
+            setShuffledChoices(shuffled);
+        }
+    }, [option.question.id]);
+
     return (
-        <div style={{ backgroundColor: option.quizQuestionProgress.completed ? 'green' : 'transparent' }}>
+        <div style={{ backgroundColor: option.quizQuestionProgress.complete ? 'green' : 'transparent' }}>
             {/* JSX content */}
             {
                 !option.isLoading ?
                     <>
                         <h1>{option.question.name}</h1>
                         {
-                            option.question.multiple_choice &&
-                            shuffleArray(option.question.multiple_choice).map((multiple_choice, i) => {
+                            shuffledChoices.map((multiple_choice, i) => {
                                 return (
                                     <ol key={i} onClick={async () => {
                                         await option.handleAnswer(option.questionIndex, multiple_choice.is_correct);
@@ -64,6 +73,4 @@ const QuestionQuizCard: React.FC<QuestionQuizCardType> = (option: QuestionQuizCa
     );
 }
 
-
 export default QuestionQuizCard;
-
