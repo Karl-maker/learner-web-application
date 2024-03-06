@@ -7,7 +7,7 @@ import { api } from "@/utils/fetch"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
-export default () => {
+const LoginPage = () => {
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const router = useRouter();
@@ -62,3 +62,7 @@ export default () => {
         onSubmit={submit}
     />
 }
+
+LoginPage.displayName = "LoginPage";
+
+export default LoginPage;
