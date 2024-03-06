@@ -17,16 +17,28 @@ export default function MainTemplate({ children }: { children: React.ReactNode }
     useLayoutEffect(() => {
         (async () => {
             console.log('MainTemplate: Render')
-            const getCurrentAccountResponse = await api<GetCurrentAccountResponse>(`/api/v1/account`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }, true);
+            const [getCurrentAccountResponse, getCurrentStudentResponse] = await Promise.all([
+                await api<GetCurrentAccountResponse>(`/api/v1/account`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }, true),
+                await api<GetCurrentStudentResponse>(`/api/v1/student`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }, true)
+
+            ])
+
+            console.log('Promise.all(): ', [getCurrentAccountResponse, getCurrentStudentResponse])
 
             if(!getCurrentAccountResponse.data?.data) return;
 
             const account = getCurrentAccountResponse.data?.data;
+            const student = getCurrentStudentResponse.data?.data;
 
             setUser(current => ({
                 ...current,
@@ -37,29 +49,6 @@ export default function MainTemplate({ children }: { children: React.ReactNode }
                     first_name: account?.first_name || '',
                     last_name: account?.last_name || '',
                     account_id: account?.id || '',
-                },
-            }));
-        
-            if(getCurrentAccountResponse.data.data.type !== 'student') return;
-
-            const getCurrentStudentResponse = await api<GetCurrentStudentResponse>(`/api/v1/student`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }, true);
-
-            // Check if the current path is not included in the list of paths
-            if (!getCurrentStudentResponse.data?.data) return
-            
-            const student = getCurrentStudentResponse.data?.data;
-
-            setUser(current => ({
-                ...current,
-                authenticated: true,
-                details: {
-                    ...current.details,
-                    account_id: student?.account_id || '',
                     student_id: student?.id || '',
                 },
             }));
