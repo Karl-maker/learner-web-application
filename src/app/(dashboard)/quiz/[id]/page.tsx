@@ -137,7 +137,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
                         handleAnswer={handleAnswer} 
                     /> : <p>Completed!</p>
                 }
-                <button onClick={handleClickBack}>Back</button>
+                <button className="btn" onClick={handleClickBack}>Back</button>
                 <button onClick={handleClickNext}>Next</button>
             </>
         }
