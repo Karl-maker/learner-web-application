@@ -100,7 +100,7 @@ export default function OnboardingProcess(params: OnboardingProcessInput) {
             <input
               id="dateOfBirth"
               type="date"
-              value={String(params.student.birth_of_date) || ""}
+              value={params.student.birth_of_date instanceof Date ? params.student.birth_of_date.toISOString().split('T')[0] : ""}
               onChange={handleChangeDateOfBirth}
               className="bg-primary w-full p-2 border-b-2 text-white border-tertiary focus:outline-none  focus:border-secondary"
               placeholder="Date Of Birth"
