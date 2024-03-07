@@ -49,8 +49,7 @@ const SignUpCard: React.FC<SignUpCardType> = ({
     setLastName(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     onSubmit();
   };
 
@@ -111,6 +110,7 @@ const SignUpCard: React.FC<SignUpCardType> = ({
               className="w-80 bg-primary text-white py-2 px-4 rounded hover:bg-secondary"
               type="submit"
               disabled={isLoading}
+              onClick={handleSubmit}
             >
               {isLoading ? "Loading..." : "Sign up"}
             </button>

@@ -39,6 +39,7 @@ export default async function StudentProfilePage({ params }: StudentProfileProps
 
     try {
         const student = await getStudentById(params.id);
+        const account = student?.account_id ? await getAccountById(student?.account_id) : null;
 
         return (
             <div>{student === null ? 'no student' : `Student's School: ${student.school?.name}`}</div>
