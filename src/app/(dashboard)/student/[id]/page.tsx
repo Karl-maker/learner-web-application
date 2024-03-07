@@ -2,48 +2,12 @@
 
 "use server"
 
-import { Account, GetAccountByIdResponse } from "@/types/account";
-import { GetStudentByIdResponse, Student } from "@/types/student";
-import { service } from "@/utils/fetch";
-import { checkErrorInstance } from "@/utils/instance/error";
+import { getAccountById } from "@/services/account";
+import { getStudentById } from "@/services/student";
 import type { Metadata, ResolvingMetadata } from 'next'
  
 type StudentProfileProps = {
   params: { id: string }
-}
-
-const getStudentById = async (id: string): Promise<Student | null> => {
-    try{
-        const response = await service<GetStudentByIdResponse>(`/api/v1/student/${id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(`getStudentById():`, response);
-        const student: Student | null = response.data?.data || null;
-        return student;
-    } catch(err) {
-        throw checkErrorInstance(err);
-    }
-}
-
-const getAccountById = async (id: string): Promise<Account | null> => {
-    try{
-        const response = await service<GetAccountByIdResponse>(`/api/v1/account/${id}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-        console.log(`getAccountById():`, response);
-        const account: Account | null = response.data?.data || null;
-        return account;
-    } catch(err) {
-        throw checkErrorInstance(err);
-    }
 }
  
 export async function generateMetadata(
