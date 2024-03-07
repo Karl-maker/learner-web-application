@@ -17,14 +17,15 @@ export type NavigationContext = {
 };
 
 export type NavigationItem = {
+    t: number;
     name: string;
     alt: string;
-    path: string;
-    action?: () => void;
+    path?: string;
+    action?: Function;
     disable: boolean;
+    auth: boolean;
     icon: {
-        active: React.ReactNode;
-        inactive: React.ReactNode;
+        active: JSX.Element;
+        inactive: JSX.Element;
     };
-    t: number;
 };

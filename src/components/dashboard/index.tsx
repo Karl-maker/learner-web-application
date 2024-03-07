@@ -5,19 +5,22 @@ import Header from "./header";
 import Navigation from "./nav";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
+import { NavigationItem } from "@/types/navigation";
+import { logout } from "@/services/authentication";
 
 export default function Dashboard () {
 
     const { user } = useContext(UserAuthContext);
     const pathname = usePathname()
     const [current, setCurrent] = useState<string>('subject');
-    const navItems = useMemo(() => ({
+    const navItems = useMemo<Record<string, NavigationItem>>(() => ({
         subject: {
             t: 1,
             name: "Subjects",
             alt: "Subjects",
             path: "/subject",
             disable: false,
+            auth: false,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -28,6 +31,7 @@ export default function Dashboard () {
             name: "Leaderboards",
             alt: "Leaderboards",
             path: "/leaderboard",
+            auth: false,
             disable: false,
             icon: {
                 active: <></>,
@@ -39,6 +43,7 @@ export default function Dashboard () {
             name: "Awards & Points",
             alt: "Awards and Points",
             path: "/stats",
+            auth: false,
             disable: !user.authenticated,
             icon: {
                 active: <></>,
@@ -50,6 +55,7 @@ export default function Dashboard () {
             name: "Progression",
             alt: "Progression",
             path: "/progression",
+            auth: true,
             disable: !user.authenticated,
             icon: {
                 active: <></>,
@@ -60,9 +66,9 @@ export default function Dashboard () {
             t: 2,
             name: "Account",
             alt: "Account",
-            path: "/student",
+            path: user.details?.student_id ? `/student/${user.details?.student_id}` : '/onboard',
+            auth: true,
             disable: !user.authenticated,
-
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -72,9 +78,10 @@ export default function Dashboard () {
             t: 3,
             name: "Logout",
             alt: "Logout",
-            path: "/home",
+            path: '/home',
+            auth: true,
             action: () => {
-                console.log('logout')
+                logout();
             },
             disable: !user.authenticated,
             icon: {
@@ -82,7 +89,7 @@ export default function Dashboard () {
                 inactive: <></>
             },
         }
-    }), [user.authenticated]);
+    }), [user.authenticated, user.details?.student_id]);
     useEffect(() => {
         const path = pathname;
         const foundItem = Object.entries(navItems).find(item => item[1]['path'] === path);

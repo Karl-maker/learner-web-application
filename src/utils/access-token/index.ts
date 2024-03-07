@@ -3,6 +3,10 @@ export const getAccessTokenFromLocalStorage = () : string | null => {
     return accessToken;
 };
 
+export const removeAccessTokenFromLocalStorage = () => {
+    localStorage.removeItem("accessToken");
+};  
+
 export const setAccessTokenInLocalStorage = (accessToken: string): void => {
     localStorage.setItem("accessToken", accessToken);
 };
