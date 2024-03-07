@@ -17,7 +17,7 @@ export default function CurrentStudentProfilePage() {
         (async () => {
             getStudentById.get();
         })();
-    }, []);
+    }, [getStudentById]);
 
     useEffect(() => {
         (async () => {

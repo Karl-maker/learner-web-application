@@ -26,7 +26,7 @@ export default function QuizPage() {
         (async () => {
             if(generateQuiz.quiz?.id) router.push(`/quiz/${generateQuiz.quiz?.id}`)
         })();
-    }, [generateQuiz.quiz]);
+    }, [generateQuiz.quiz, router]);
 
     return (
         <>

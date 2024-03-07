@@ -113,7 +113,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
                 setInitialLoad(false);
             }
         })();
-    }, [params.id]);
+    }, [params.id, handleUpdateQuestionStates]);
 
     useEffect(() => {
         (async () => {
@@ -121,7 +121,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
 
             await handleUpdateQuestionStates();
         })();
-    }, [updateQuiz.quiz])
+    }, [updateQuiz.quiz, handleUpdateQuestionStates])
 
     return <>
         {

@@ -26,7 +26,7 @@ const SignUpPage = () => {
         (async () => {
             if(signupAccount.result) router.push('/login');
         })()
-    }, [signupAccount.result]);
+    }, [signupAccount.result, router]);
 
     useEffect(() => {
         (async () => {

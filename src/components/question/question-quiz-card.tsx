@@ -45,7 +45,7 @@ const QuestionQuizCard: React.FC<QuestionQuizCardType> = (option: QuestionQuizCa
             const shuffled = shuffleArray(option.question.multiple_choice);
             setShuffledChoices(shuffled);
         }
-    }, [option.question.id]);
+    }, [option.question.id, option.question.multiple_choice]);
 
     return (
         <div style={{ backgroundColor: option.quizQuestionProgress.complete ? 'green' : 'transparent' }}>

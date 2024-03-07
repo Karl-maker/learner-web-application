@@ -40,7 +40,7 @@ const LoginPage = () => {
             if(Object.keys(result.data || {}).length === 0) router.push("/onboard");
             if(result.data?.data) router.push("/home");
         })()
-    }, [loginAccount.isLoggedIn]);
+    }, [loginAccount.isLoggedIn, router]);
 
     /**
      * @desc Error

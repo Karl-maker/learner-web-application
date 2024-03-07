@@ -88,7 +88,7 @@ export default function Dashboard () {
         const path = pathname;
         const foundItem = Object.entries(navItems).find(item => item[1]['path'] === path);
         setCurrent(foundItem ? foundItem[0] : "");
-    }, [pathname]);
+    }, [pathname, navItems]);
 
     return <>
         <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated}/>

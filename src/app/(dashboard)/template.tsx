@@ -18,7 +18,7 @@ export default function AuthTemplate({ children }: { children: React.ReactNode }
             // Check if the current path is not included in the list of paths
             if (user.authenticated && pathsToCheck.includes(pathname) && !user.details?.student_id) router.push("/onboard");
         })();
-    }, [user.details]);
+    }, [user.details, pathname, router, user.authenticated]);
 
     return (
         <>
