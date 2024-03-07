@@ -9,6 +9,7 @@ export type Navigation = {
     display: boolean;
     items: Record<string, NavigationItem>;
     current: string;
+    loading: boolean;
 };
 
 export type NavigationContext = {

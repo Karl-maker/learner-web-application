@@ -10,7 +10,7 @@ import { logout } from "@/services/authentication";
 
 export default function Dashboard () {
 
-    const { user } = useContext(UserAuthContext);
+    const { user, isLoading } = useContext(UserAuthContext);
     const pathname = usePathname()
     const [current, setCurrent] = useState<string>('subject');
     const navItems = useMemo<Record<string, NavigationItem>>(() => ({
@@ -94,11 +94,12 @@ export default function Dashboard () {
         const path = pathname;
         const foundItem = Object.entries(navItems).find(item => item[1]['path'] === path);
         setCurrent(foundItem ? foundItem[0] : "");
-    }, [pathname, navItems]);
+    }, [pathname, navItems, isLoading]);
 
     return <>
-        <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated}/>
+        <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated} isLoading={isLoading}/>
         <Navigation options={{
+            loading: isLoading,
             profile: {
                 name: user.details?.first_name || "",
                 picture: user.details?.profile?.picture?.url || ""

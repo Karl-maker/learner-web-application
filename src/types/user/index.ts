@@ -19,4 +19,5 @@ export type User = {
 export type UserContext = {
     user: User;
     setUser: (user: User) => void;
+    isLoading: boolean;
 };
