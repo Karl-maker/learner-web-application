@@ -3,7 +3,7 @@
 import { UserAuthContext } from "@/app/template";
 import Header from "./header";
 import Navigation from "./nav";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Dashboard () {
@@ -11,7 +11,7 @@ export default function Dashboard () {
     const { user } = useContext(UserAuthContext);
     const pathname = usePathname()
     const [current, setCurrent] = useState<string>('subject');
-    const navItems = {
+    const navItems = useMemo(() => ({
         subject: {
             t: 1,
             name: "Subjects",
@@ -82,8 +82,7 @@ export default function Dashboard () {
                 inactive: <></>
             },
         }
-    };
-
+    }), [user.authenticated]);
     useEffect(() => {
         const path = pathname;
         const foundItem = Object.entries(navItems).find(item => item[1]['path'] === path);

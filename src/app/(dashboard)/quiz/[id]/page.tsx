@@ -7,7 +7,7 @@ import { GetQuestionByIdResponse, Question } from "@/types/question";
 import { GetQuizByIdResponse, Quiz, QuizQuestion, QuizQuestionResult } from "@/types/quiz";
 import { ApplicationError, NotFoundError } from "@/utils/error";
 import { api } from "@/utils/fetch";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function QuizPage({ params }: { params: { id: string } }) {
     const [questions, setQuestions] = useState<Record<string, Question>>({});
@@ -17,7 +17,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
     const [initialLoad, setInitialLoad] = useState<boolean>(true);
     const updateQuiz = useUpdateQuizById();
 
-    async function handleUpdateQuestionStates() {
+    const handleUpdateQuestionStates = useCallback(async () => {
         console.log(`handleUpdateQuestionStates()`);
         const getQuizResponse = await api<GetQuizByIdResponse>(`/api/v1/quiz/${params.id}`, {
             method: "GET",
@@ -40,7 +40,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
         setStudentQuestionStates(quiz.questions);
 
         return {questionIds, quiz}
-    }
+    }, [params.id]);
     async function handleAnswer(i: number, correct: boolean): Promise<void> {
         if(complete) return;
         if(studentQuestionStates[i].complete) return;

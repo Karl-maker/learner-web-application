@@ -23,11 +23,6 @@ const getStudentById = async (id: string): Promise<Student | null> => {
     }
 }
 
-export const metadata = {
-    title: "Student Details - CXC & CSEC Student Learning App",
-    description: "Explore detailed information about students using our learning platform. Empower yourself for success in CXC and CSEC exams by accessing student profiles, progress tracking, and more!",
-};  
-
 /**
  * @desc student profiles are here and can display information about students
  * @todo complete styling 
