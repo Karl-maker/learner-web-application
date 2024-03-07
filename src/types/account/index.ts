@@ -14,16 +14,11 @@ export type UseGetCurrentAccount = UseBase & {
 }
 
 export type GetCurrentAccountResponse = {
-    data: {
-        email: string;
-        first_name?: string;
-        last_name?: string;
-        type: AccountTypes;
-        id: string;
-        created_at: Date;
-        updated_at: Date;
-        v: number;
-    };
+    data: Account;
+}
+
+export type GetAccountByIdResponse = {
+    data: Account;
 }
 
 export type AccountTypes = 'student' | 'administrator' | null;
