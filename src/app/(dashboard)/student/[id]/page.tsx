@@ -5,6 +5,7 @@
 import { getAccountById } from "@/services/account";
 import { getStudentById } from "@/services/student";
 import type { Metadata, ResolvingMetadata } from 'next'
+import Image from "next/image";
  
 type StudentProfileProps = {
   params: { id: string }
@@ -42,8 +43,40 @@ export default async function StudentProfilePage({ params }: StudentProfileProps
         const account = student?.account_id ? await getAccountById(student?.account_id) : null;
 
         return (
-            <div>{student === null ? 'no student' : `Student's School: ${student.school?.name}`}</div>
-        );
+          <div className="p-8">
+          {student === null ? (
+              <p>No student data found.</p>
+          ) : (
+              <>
+                  <h2 className="text-2xl font-bold mb-4">Student Information</h2>
+                  {account && (
+                      <p className="text-lg font-semibold mb-2">{`${account.first_name} ${account.last_name}`}</p>
+                  )}
+                  {student.profile?.picture?.url ? (
+                      <div className="avatar">
+                          <div className="w-12 rounded-full">
+                              <Image
+                                  src={student.profile?.picture?.url}
+                                  alt={`${account?.first_name || 'Student'}'s profile image`}
+                                  width={80}
+                                  height={80}
+                              />
+                          </div>
+                      </div>
+                  ) : (
+                      <div className="avatar placeholder">
+                          <div className="bg-neutral text-neutral-content rounded-full w-12">
+                              <span className="text-3xl">{account?.first_name.charAt(0) || ''}</span>
+                          </div>
+                      </div>
+                  )}
+                  {student.school?.name && <p className="text-lg font-semibold mb-2">{student.school?.name}</p>}
+                  {student.location?.country && <p className="text-lg font-semibold mb-2">{student.location?.country}</p>}
+                  {student.grade && <p className="text-lg font-semibold mb-2">Grade: {student.grade}</p>}
+              </>
+          )}
+      </div>
+      );
 
     } catch(err) {
 
