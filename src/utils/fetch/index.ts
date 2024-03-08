@@ -44,11 +44,13 @@ export const api = async <T>(
 
 export const service = async <T>(
     endpoint: string,
-    options: RequestInit
+    options: RequestInit,
+    cacheMinutes: number = 1
 ): Promise<ApiResponse<T>> => {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, {
             ...options,
+            next: { revalidate: 60 * cacheMinutes }
         });
         if (response.ok) {
             const data = await response.json() as T;
