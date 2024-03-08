@@ -27,6 +27,19 @@ export default function Dashboard () {
                 inactive: <></>
             },
         },
+        quiz: {
+            t: 1,
+            name: "Quiz",
+            alt: "Quiz",
+            path: "/quiz",
+            auth: true,
+            disable: !user.authenticated,
+            highlight: true,
+            icon: {
+                active: <></>,
+                inactive: <></>
+            },
+        },
         leaderboard: {
             t: 1,
             name: "Leaderboards",
