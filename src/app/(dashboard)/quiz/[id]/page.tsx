@@ -1,5 +1,6 @@
 "use client"
 
+import { UserAuthContext } from "@/app/template";
 import QuestionQuizCard from "@/components/question/question-quiz-card";
 import useGetQuizById from "@/hooks/quiz/get-by-id";
 import useUpdateQuizById from "@/hooks/quiz/update-by-id";
@@ -7,9 +8,10 @@ import { GetQuestionByIdResponse, Question } from "@/types/question";
 import { GetQuizByIdResponse, Quiz, QuizQuestion, QuizQuestionResult } from "@/types/quiz";
 import { ApplicationError, NotFoundError } from "@/utils/error";
 import { api } from "@/utils/fetch";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 export default function QuizPage({ params }: { params: { id: string } }) {
+    const { user } = useContext(UserAuthContext);
     const [questions, setQuestions] = useState<Record<string, Question>>({});
     const [studentQuestionStates, setStudentQuestionStates] = useState<QuizQuestion[]>([]);
     const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -80,6 +82,11 @@ export default function QuizPage({ params }: { params: { id: string } }) {
 
                 const { questionIds, quiz } = await handleUpdateQuestionStates()
 
+                if(quiz.student_id !== user.details?.student_id) {
+                    alert('Not Your Quiz :(')
+                    return;
+                }
+
                 quiz.questions.forEach((question) => {
                     questionIds.add(question.id);
                 });
@@ -113,7 +120,7 @@ export default function QuizPage({ params }: { params: { id: string } }) {
                 setInitialLoad(false);
             }
         })();
-    }, [params.id, handleUpdateQuestionStates]);
+    }, [params.id, handleUpdateQuestionStates, user.details?.student_id]);
 
     useEffect(() => {
         (async () => {

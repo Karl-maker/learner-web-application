@@ -1,7 +1,10 @@
 import { DifficultyLevels } from "@/types/quiz";
+import { daysAgo } from "@/utils/date";
+import Link from "next/link";
 
 export type QuizResultType = {
-     questions: {
+    id: string;
+    questions: {
         amount: {
             total: number;
             correct: number;
@@ -9,30 +12,46 @@ export type QuizResultType = {
         overallDifficulty: DifficultyLevels;
         dateOfAttempt: Date;
         complete: boolean;
-     };
-     topics: string[];
+    };
+    topics: string[];
 }
 
-export const QuizResultCard : React.FC<QuizResultType> = (option: QuizResultType) => {
+export const QuizResultCard: React.FC<QuizResultType> = (option: QuizResultType) => {
+    const { total, correct } = option.questions.amount;
+    const correctPercentage = (correct / total) * 100;
+
+    const difficultyBadge = (d: DifficultyLevels) => {
+        if (d === 'easy') return 'badge-success';
+        if (d === 'medium') return 'badge-warning';
+        if (d === 'hard' || d === 'very hard') return 'badge-error';
+    };
+
     return (
-        <div className="p-8 bg-white shadow-md rounded-lg">
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold mb-2">Quiz Result</h2>
-                <p className="text-gray-800 mb-2 font-bold text-2xl">{`${option.questions.amount.correct / option.questions.amount.total * 100}%`}</p>
-                <p className="text-gray-600 mb-2">{option.questions.amount.correct} / {option.questions.amount.total}</p>
-                <p className="text-gray-500 mb-1">{option.questions.complete ? 'Complete' : 'Incomplete'}</p>
-                <p className="text-gray-500 mb-1">{option.questions.overallDifficulty}</p>
-                <p className="text-gray-500 mb-1">{new Date(option.questions.dateOfAttempt).toLocaleDateString()}</p>
-            </div>
-            <div>
-                <div className="flex flex-wrap">
-                    {option.topics.map((topic, index) => (
-                        <span key={index} color="info" className="mr-2 mb-2">
-                            {topic}
-                        </span>
-                    ))}
+        <Link href={`/quiz/${option.id}`}>
+            <div className="p-8 bg-white shadow-md rounded-lg relative">
+                <div className="absolute top-3 right-3">
+                    <p className={`m-1 badge badge-outline ${option.questions.complete ? 'badge-success' : 'badge-error'}`}>{option.questions.complete ? 'Complete' : 'Incomplete'}</p>
+                    <p className={`m-1 badge badge-outline ${difficultyBadge(option.questions.overallDifficulty)}`}>{option.questions.overallDifficulty}</p>
+                </div>
+                <div className="flex items-center">
+                    <div className="flex items-center">
+                        <p className="radial-progress mr-4 bg-primary text-primary-content border-4 border-primary" style={{"--value": correctPercentage, "--thickness": "2px" } as React.CSSProperties} role="progressbar">{`${correctPercentage}%`}</p>
+                        <div className="text-sm text-gray-600">{`${correct}/${total}`}</div>
+                    </div>
+                </div>
+                <div className="absolute bottom-3 right-3">
+                    <p className="text-gray-500 mb-1">{daysAgo(new Date(option.questions.dateOfAttempt))}</p>
+                </div>
+                <div>
+                    <div className="flex flex-wrap">
+                        {option.topics.map((topic, index) => (
+                            <span key={index} className="mr-2 mb-2 text-info">
+                                {topic}
+                            </span>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
