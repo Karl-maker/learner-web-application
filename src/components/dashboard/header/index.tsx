@@ -3,6 +3,7 @@ export type HeaderBarParams = {
   profile_picture?: string;
   isLoggedIn: boolean;
   isLoading: boolean;
+  picture: string;
 };
 
 export default function HeaderBar(params: HeaderBarParams) {
@@ -10,8 +11,24 @@ export default function HeaderBar(params: HeaderBarParams) {
     <header className="py-4 bg-primary text-2xl text-white">
       { !params.isLoading ?
         <>
-          <p className="px-8">{params.name}</p>
-          {!params.isLoggedIn && <button>Login</button>}
+          {!params.isLoggedIn ? <button>Login</button> : 
+          <div>
+            <p className="px-8">{params.name}</p>
+            { params.picture ?            
+              <div className="avatar">
+                <div className="w-24 rounded-full">
+                  <img src={params.picture} />
+                </div>
+              </div> 
+              : 
+              <div className="avatar placeholder">
+                <div className="bg-neutral text-neutral-content rounded-full w-24">
+                  <span className="text-3xl">{params.name.charAt(0)}</span>
+                </div>
+              </div> 
+            }
+          </div>
+          }
         </> : <p>Loading</p>
       }
     </header>

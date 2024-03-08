@@ -3,7 +3,7 @@
 import { UserAuthContext } from "@/app/template";
 import Header from "./header";
 import Navigation from "./nav";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { use, useContext, useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 import { NavigationItem } from "@/types/navigation";
 import { logout } from "@/services/authentication";
@@ -97,7 +97,7 @@ export default function Dashboard () {
     }, [pathname, navItems, isLoading]);
 
     return <>
-        <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated} isLoading={isLoading}/>
+        <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated} isLoading={isLoading} picture={user.details?.profile?.picture?.url || ''}/>
         <Navigation options={{
             loading: isLoading,
             profile: {

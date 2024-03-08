@@ -53,6 +53,11 @@ export default function MainTemplate({ children }: { children: React.ReactNode }
                         last_name: account?.last_name || '',
                         account_id: account?.id || '',
                         student_id: student?.id || '',
+                        profile: {
+                            picture: {
+                                url: student?.profile?.picture?.url || ""
+                            }
+                        }
                     },
                 }));
             } catch(err) {
