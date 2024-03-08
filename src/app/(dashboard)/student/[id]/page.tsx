@@ -12,7 +12,12 @@ import Image from "next/image";
  
 type StudentProfileProps = {
   params: { id: string };
-  query: any;
+  searchParams: {
+    page_size?: number;
+    page?: number;
+    field?: keyof Quiz;
+    sort?: 'desc' | 'asc';
+  };
 }
  
 export async function generateMetadata(
@@ -40,16 +45,16 @@ export async function generateMetadata(
  * @todo complete styling 
  */
 
-export default async function StudentProfilePage({ params, query }: StudentProfileProps) {
+export default async function StudentProfilePage({ params, searchParams }: StudentProfileProps) {
 
     try {
         const student = await getStudentById(params.id);
         const account = student?.account_id ? await getAccountById(student?.account_id) : null;
         const quizzes = await getAllStudentQuiz(params.id, {
-            sort: 'desc',
-            field: query?.field as keyof Quiz || 'created_at',
+            sort: searchParams?.sort || 'desc',
+            field: searchParams?.field as keyof Quiz || 'created_at',
             page_size: 10,
-            page: Number(query?.page) || 1,
+            page: Number(searchParams?.page) || 1,
         });
 
         return (

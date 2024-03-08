@@ -83,7 +83,7 @@ export default function Dashboard () {
             t: 2,
             name: "Account",
             alt: "Account",
-            path: user.details?.student_id ? `/student/${user.details?.student_id}` : '/onboard',
+            path: user.details?.student_id ? `/student/${user.details?.student_id}?page=1&sort=desc&field=created_at` : '/onboard',
             auth: true,
             disable: !user.authenticated,
             highlight: true,

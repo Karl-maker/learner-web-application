@@ -5,6 +5,10 @@ import { checkErrorInstance } from "@/utils/instance/error";
 
 export const getAllStudentQuiz = async (student_id: string, options: GetManyQueryParams<Quiz>) => {
     try{
+        console.log(`getAllStudentQuiz().params: `, {
+            student_id,
+            options
+        })
         const response = await service<GetAllQuizzesResponse>(`/api/v1/quiz?student_id=${student_id}&sort=${options.sort}&field=${options.field}&page_size=${options.page_size}&page=${options.page}`, {
             method: "GET",
             headers: {
