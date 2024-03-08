@@ -8,7 +8,8 @@ export const defaultNavigation: Navigation = {
     profile: {
         name: "",
         picture: ""
-    }
+    },
+    loading: true
 }
 
 export const defaultNavigationLayoutContext: NavigationContext = {
