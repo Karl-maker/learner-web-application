@@ -15,6 +15,7 @@ export const api = async <T>(
 ): Promise<ApiResponse<T>> => {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, {
+            cache: 'no-store',
             ...options,
             headers: jwt ? {
                 ...options.headers,
