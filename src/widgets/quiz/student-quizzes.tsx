@@ -11,7 +11,7 @@ export default function StudentQuizzesWidget({
         {
             data.map((quiz: Quiz, key: number) => {
 
-                const completedQuestions = quiz.questions.filter((question) => question.complete);
+                const completedQuestions = quiz.questions.filter((question) => question.earned_marks === question.possible_marks);
 
                 let averageDifficultySum: number = 0;
 
