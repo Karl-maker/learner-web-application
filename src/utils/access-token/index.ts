@@ -5,6 +5,7 @@ export const getAccessTokenFromLocalStorage = () : string | null => {
 
 export const removeAccessTokenFromLocalStorage = () => {
     localStorage.removeItem("accessToken");
+    location.reload()
 };  
 
 export const setAccessTokenInLocalStorage = (accessToken: string): void => {

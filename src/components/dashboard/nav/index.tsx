@@ -37,7 +37,7 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
                     if (value.path) route.push(value.path);
                   }}
                   className={`py-1  cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
-                    input.options.current === key
+                    (input.options.current === key) && value.highlight
                       ? "bg-secondary rounded py-1 drop-shadow-md"
                       : "bg-primary border-solid border-white border rounded m-2  "
                   }`}

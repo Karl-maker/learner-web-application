@@ -21,6 +21,7 @@ export default function Dashboard () {
             path: "/subject",
             disable: false,
             auth: false,
+            highlight: true,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -33,6 +34,7 @@ export default function Dashboard () {
             path: "/leaderboard",
             auth: false,
             disable: false,
+            highlight: true,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -45,6 +47,7 @@ export default function Dashboard () {
             path: "/stats",
             auth: false,
             disable: !user.authenticated,
+            highlight: true,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -57,6 +60,7 @@ export default function Dashboard () {
             path: "/progression",
             auth: true,
             disable: !user.authenticated,
+            highlight: true,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -69,6 +73,7 @@ export default function Dashboard () {
             path: user.details?.student_id ? `/student/${user.details?.student_id}` : '/onboard',
             auth: true,
             disable: !user.authenticated,
+            highlight: true,
             icon: {
                 active: <></>,
                 inactive: <></>
@@ -80,6 +85,7 @@ export default function Dashboard () {
             alt: "Logout",
             path: '/home',
             auth: true,
+            highlight: false,
             action: () => {
                 logout();
             },

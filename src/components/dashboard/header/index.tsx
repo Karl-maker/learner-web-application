@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export type HeaderBarParams = {
@@ -19,7 +20,7 @@ export default function HeaderBar(params: HeaderBarParams) {
             { params.picture ?            
               <div className="avatar">
                 <div className="w-24 rounded-full">
-                  <img src={params.picture} />
+                  <Image src={params.picture} alt={`${params.name}'s profile image`} />
                 </div>
               </div> 
               : 

@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export type Navigation = {
     profile: {
         name: string;
@@ -25,6 +23,7 @@ export type NavigationItem = {
     action?: Function;
     disable: boolean;
     auth: boolean;
+    highlight: boolean;
     icon: {
         active: JSX.Element;
         inactive: JSX.Element;
