@@ -20,7 +20,7 @@ export default function HeaderBar(params: HeaderBarParams) {
             { params.picture ?            
               <div className="avatar">
                 <div className="w-24 rounded-full">
-                  <Image src={params.picture} alt={`${params.name}'s profile image`} />
+                  <Image src={params.picture} alt={`${params.name}'s profile image`} width={80} height={80}/>
                 </div>
               </div> 
               : 
