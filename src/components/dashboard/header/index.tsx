@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export type HeaderBarParams = {
   name: string;
   profile_picture?: string;
@@ -11,7 +13,7 @@ export default function HeaderBar(params: HeaderBarParams) {
     <header className="py-4 bg-primary text-2xl text-white">
       { !params.isLoading ?
         <>
-          {!params.isLoggedIn ? <button>Login</button> : 
+          {!params.isLoggedIn ? <Link className='btn' href='/login'>Login</Link> : 
           <div>
             <p className="px-8">{params.name}</p>
             { params.picture ?            
