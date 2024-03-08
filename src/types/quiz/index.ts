@@ -41,12 +41,18 @@ export type GetQuizByIdResponse = {
     data: Quiz | null;
 }
 
+export type GetAllQuizzesResponse = {
+    data: Quiz[] | null;
+}
+
 export type GenerateQuizParams = {
     "no_of_questions": number;
     "topic"?: string;
     "difficulty": number;
     "range": number;
 }
+
+export type DifficultyLevels = 'easy' | 'medium' | 'hard' | 'very hard'
 
 export type UseGenerateQuiz = UseBase & {
     start: (params: GenerateQuizParams) => Promise<void>;

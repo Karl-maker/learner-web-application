@@ -3,12 +3,16 @@
 "use server"
 
 import { getAccountById } from "@/services/account";
+import { getAllStudentQuiz } from "@/services/quiz";
 import { getStudentById } from "@/services/student";
+import { Quiz } from "@/types/quiz";
+import StudentQuizzesWidget from "@/widgets/quiz/student-quizzes";
 import type { Metadata, ResolvingMetadata } from 'next'
 import Image from "next/image";
  
 type StudentProfileProps = {
-  params: { id: string }
+  params: { id: string };
+  query: any;
 }
  
 export async function generateMetadata(
@@ -36,11 +40,17 @@ export async function generateMetadata(
  * @todo complete styling 
  */
 
-export default async function StudentProfilePage({ params }: StudentProfileProps) {
+export default async function StudentProfilePage({ params, query }: StudentProfileProps) {
 
     try {
         const student = await getStudentById(params.id);
         const account = student?.account_id ? await getAccountById(student?.account_id) : null;
+        const quizzes = await getAllStudentQuiz(params.id, {
+            sort: 'desc',
+            field: query?.field as keyof Quiz || 'created_at',
+            page_size: 10,
+            page: Number(query?.page) || 1,
+        });
 
         return (
           <div className="p-8">
@@ -73,6 +83,7 @@ export default async function StudentProfilePage({ params }: StudentProfileProps
                   {student.school?.name && <p className="text-lg font-semibold mb-2">{student.school?.name}</p>}
                   {student.location?.country && <p className="text-lg font-semibold mb-2">{student.location?.country}</p>}
                   {student.grade && <p className="text-lg font-semibold mb-2">Grade: {student.grade}</p>}
+                  {quizzes && <StudentQuizzesWidget data={quizzes || []} />}
               </>
           )}
       </div>
