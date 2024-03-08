@@ -6,5 +6,6 @@ export const defaultUser: User = {
 
 export const defaultUserContext: UserContext = {
     user: defaultUser,
-    setUser: (user: User) => {}
+    setUser: (user: User) => { },
+    isLoading: true
 }
