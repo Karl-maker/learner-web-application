@@ -1,9 +1,10 @@
 "use client";
 
 import { UserAuthContext } from "@/app/template";
+import useGetCurrentStudent from "@/hooks/student/get-current";
 import { Navigation } from "@/types/navigation";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 export type NavigationBarOptions = {
   options: Navigation;
@@ -14,13 +15,22 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
 ) => {
   const route = useRouter();
   const { user } = useContext(UserAuthContext);
+  const current_student = useGetCurrentStudent();
+
+  useEffect(() => {
+    (async () => {
+      await current_student.get();
+    })();
+  }, [user]);
 
   return (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
-        <p className="text-white text-2xl py-3 border-solid flex justify-center pb-8 ">
-          Navigation Bar
-        </p>
+        <div>
+          <p>{ `${user.details?.first_name} ${user.details?.last_name}` }</p>
+          <p>{ current_student.isLoading ? 'loading' : current_student.student?.school?.name || '' }</p>
+          <p>{ current_student.isLoading ? 'loading' : `Grade ${current_student.student?.grade}` || '' }</p>
+        </div>
         { !input.options.loading ?
           <>
             <h1 className="text-white py-2">{input.options.profile.name || ""}</h1>
