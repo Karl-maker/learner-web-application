@@ -6,6 +6,8 @@ import { Navigation } from "@/types/navigation";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
+const navSkeletonStudentInfoLoad = 'skeleton w-20 h-2 m-2';
+
 export type NavigationBarOptions = {
   options: Navigation;
 };
@@ -27,9 +29,9 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
         <div>
-          <p>{ `${user.details?.first_name} ${user.details?.last_name}` }</p>
-          <p>{ current_student.isLoading ? 'loading' : current_student.student?.school?.name || '' }</p>
-          <p>{ current_student.isLoading ? 'loading' : `Grade ${current_student.student?.grade}` || '' }</p>
+          { !user.details ? <div className={navSkeletonStudentInfoLoad}></div> : <p>{`${user.details?.first_name} ${user.details?.last_name}`}</p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { current_student.student?.school?.name || '' } </p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
         </div>
         { !input.options.loading ?
           <>
