@@ -30,12 +30,12 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
         <div className="items-center">
-          <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={60} height={60} isLoading={current_student.isLoading}/>
+          { (user.details || current_student.isLoading) && <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={60} height={60} isLoading={current_student.isLoading}/>}
         </div>
         <div className="flex flex-col gap-1 mt-4 mb-4 items-center">
-          { !user.details || current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p>{`${user.details?.first_name} ${user.details?.last_name}`}</p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p>{ user.details?.first_name ? `${user.details?.first_name} ${user.details?.last_name}` : ""}</p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(32)}></div> : <p> { current_student.student?.school?.name || '' } </p> }
-          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { current_student.student?.grade ? `Grade ${current_student.student?.grade}` : "" || ''  } </p> }
         </div>
           <div className="flex flex-col gap-2">
             {Object.entries(input.options.items).map(([key, value]) => {
