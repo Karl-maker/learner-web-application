@@ -29,7 +29,8 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
   return (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
-        <div className="items-center">
+        <p className="text-center mb-3 mt-1">Learner Hub</p>
+        <div className="text-center">
           { (user.details || current_student.isLoading) && <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={60} height={60} isLoading={current_student.isLoading}/>}
         </div>
         <div className="flex flex-col gap-1 mt-4 mb-4 items-center">
