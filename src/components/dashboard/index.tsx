@@ -8,12 +8,32 @@ import { usePathname } from "next/navigation";
 import { NavigationItem } from "@/types/navigation";
 import { logout } from "@/services/authentication";
 
+// React Icons
+
+import { MdOutlineDashboard } from 'react-icons/md';
+import { BiBook } from 'react-icons/bi';
+import { LiaTrophySolid } from 'react-icons/lia';
+import { GrLineChart } from 'react-icons/gr';
+
 export default function Dashboard () {
 
     const { user, isLoading } = useContext(UserAuthContext);
     const pathname = usePathname()
     const [current, setCurrent] = useState<string>('subject');
     const navItems = useMemo<Record<string, NavigationItem>>(() => ({
+        dashboard: {
+            t: 1,
+            name: "Dashboard",
+            alt: "Dashboard",
+            path: "/home",
+            auth: true,
+            disable: !user.authenticated,
+            highlight: true,
+            icon: {
+                active: <MdOutlineDashboard/>,
+                inactive: <></>
+            },
+        },
         subject: {
             t: 1,
             name: "Subjects",
@@ -23,46 +43,46 @@ export default function Dashboard () {
             auth: false,
             highlight: true,
             icon: {
-                active: <></>,
+                active: <BiBook/>,
                 inactive: <></>
             },
         },
-        quiz: {
-            t: 1,
-            name: "Quiz",
-            alt: "Quiz",
-            path: "/quiz",
-            auth: true,
-            disable: !user.authenticated,
-            highlight: true,
-            icon: {
-                active: <></>,
-                inactive: <></>
-            },
-        },
-        leaderboard: {
-            t: 1,
-            name: "Leaderboards",
-            alt: "Leaderboards",
-            path: "/leaderboard",
-            auth: false,
-            disable: false,
-            highlight: true,
-            icon: {
-                active: <></>,
-                inactive: <></>
-            },
-        },
+        // quiz: {
+        //     t: 1,
+        //     name: "Quiz",
+        //     alt: "Quiz",
+        //     path: "/quiz",
+        //     auth: true,
+        //     disable: !user.authenticated,
+        //     highlight: true,
+        //     icon: {
+        //         active: <></>,
+        //         inactive: <></>
+        //     },
+        // },
+        // leaderboard: {
+        //     t: 1,
+        //     name: "Leaderboards",
+        //     alt: "Leaderboards",
+        //     path: "/leaderboard",
+        //     auth: false,
+        //     disable: false,
+        //     highlight: true,
+        //     icon: {
+        //         active: <></>,
+        //         inactive: <></>
+        //     },
+        // },
         stats: {
             t: 1,
-            name: "Awards & Points",
-            alt: "Awards and Points",
+            name: "Awards",
+            alt: "Awards",
             path: "/stats",
             auth: false,
             disable: !user.authenticated,
             highlight: true,
             icon: {
-                active: <></>,
+                active: <LiaTrophySolid/>,
                 inactive: <></>
             },
         },
@@ -75,7 +95,7 @@ export default function Dashboard () {
             disable: !user.authenticated,
             highlight: true,
             icon: {
-                active: <></>,
+                active: <GrLineChart />,
                 inactive: <></>
             },
         },
@@ -93,7 +113,7 @@ export default function Dashboard () {
             },
         },
         logout: {
-            t: 3,
+            t: 2,
             name: "Logout",
             alt: "Logout",
             path: '/home',

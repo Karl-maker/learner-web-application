@@ -51,12 +51,13 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
                     if (value.action) value.action();
                     if (value.path) route.push(value.path);
                   }}
-                  className={`py-1  cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
+                  className={`py-1 cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
                     (input.options.current === key) && value.highlight
                       ? "bg-secondary rounded py-1 drop-shadow-md"
                       : "bg-primary border-solid border-white border rounded m-2  "
                   }`}
                 >
+                  <div>{value.t === 2 ? "TYPE @" : value.icon.active}</div>
                   <span className="text-white font-bold py-2">{value.name}</span>
                 </div>
               );
