@@ -13,7 +13,15 @@ const nextConfig = {
             port: '4000',
             pathname: '/**',
           },
+          {
+            protocol: 'https',
+            hostname: 'learnhub-backend-t0kl.onrender.com',
+            port: '4000',
+            pathname: '/**',
+          },
         ],
+        domains: ['learnhub-backend-t0kl.onrender.com'],
+      
     },
     env: {
         BASE_URL: process.env.API_BASE_URL
