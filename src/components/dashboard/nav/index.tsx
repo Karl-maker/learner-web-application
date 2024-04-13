@@ -1,6 +1,7 @@
 "use client";
 
 import { UserAuthContext } from "@/app/template";
+import ProfileAvatar from "@/components/profile/profile-avatar";
 import useGetCurrentStudent from "@/hooks/student/get-current";
 import { Navigation } from "@/types/navigation";
 import { useRouter } from "next/navigation";
@@ -29,13 +30,15 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
         <div>
+          <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={50} height={50}/>
+        </div>
+        <div>
           { !user.details ? <div className={navSkeletonStudentInfoLoad}></div> : <p>{`${user.details?.first_name} ${user.details?.last_name}`}</p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { current_student.student?.school?.name || '' } </p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
         </div>
         { !input.options.loading ?
           <>
-            <h1 className="text-white py-2">{input.options.profile.name || ""}</h1>
             {Object.entries(input.options.items).map(([key, value]) => {
               // Check if the item should be displayed
               if (value.auth && !user.authenticated) return null;

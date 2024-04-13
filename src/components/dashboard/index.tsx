@@ -116,7 +116,7 @@ export default function Dashboard () {
     }, [pathname, navItems, isLoading]);
 
     return <>
-        <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated} isLoading={isLoading} picture={user.details?.profile?.picture?.url || ''}/>
+        {/* <Header name={user.details?.first_name || ""} isLoggedIn={user.authenticated} isLoading={isLoading} picture={user.details?.profile?.picture?.url || ''}/> */}
         <Navigation options={{
             loading: isLoading,
             profile: {
