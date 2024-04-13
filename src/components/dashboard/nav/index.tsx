@@ -37,33 +37,38 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(32)}></div> : <p> { current_student.student?.school?.name || '' } </p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
         </div>
-        { !input.options.loading ?
-          <>
+          <div className="flex flex-col gap-2">
             {Object.entries(input.options.items).map(([key, value]) => {
               // Check if the item should be displayed
               if (value.auth && !user.authenticated) return null;
 
               const typeVal = value.t; // value.t is a number from 1 to 3 you can use to give different styles to conditionally. login is 3, account is 2 and all the rest are 1
               return (
-                <div
-                  key={key}
-                  onClick={() => {
-                    if (value.action) value.action();
-                    if (value.path) route.push(value.path);
-                  }}
-                  className={`py-1 cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
-                    (input.options.current === key) && value.highlight
-                      ? "bg-secondary rounded py-1 drop-shadow-md"
-                      : "bg-primary border-solid border-white border rounded m-2  "
-                  }`}
-                >
-                  <div>{value.t === 2 ? "TYPE @" : value.icon.active}</div>
-                  <span className="text-white font-bold py-2">{value.name}</span>
-                </div>
+                <>
+                {
+                  !input.options.loading ?                 
+                    <div
+                      key={key}
+                      onClick={() => {
+                        if (value.action) value.action();
+                        if (value.path) route.push(value.path);
+                      }}
+                      className={`py-1 cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
+                        (input.options.current === key) && value.highlight
+                          ? "bg-secondary rounded py-1 drop-shadow-md"
+                          : "bg-primary border-solid border-white border rounded "
+                      }`}
+                    >
+                      <div>{value.t === 2 ? "TYPE @" : value.icon.active}</div>
+                      <span className="text-white font-bold py-2">{value.name}</span>
+                    </div> 
+                    : 
+                    <div className="skeleton h-12 w-full"></div>
+                }
+                </>
               );
             })}
-          </> : <p>Loading</p>
-        }
+          </div>
       </nav>
     </div>
   );
