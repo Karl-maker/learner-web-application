@@ -14,7 +14,7 @@ import { GetCurrentStudentResponse, Student, UseGetCurrentStudent } from "@/type
 const useGetCurrentStudent = () : UseGetCurrentStudent => {
     const [student, setStudent] = useState<Student | null>(null);
     const [error, setError] = useState<ApplicationError | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const get = async (): Promise<void> => {
         setIsLoading(true);

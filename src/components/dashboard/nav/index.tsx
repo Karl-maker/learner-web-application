@@ -7,7 +7,7 @@ import { Navigation } from "@/types/navigation";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
-const navSkeletonStudentInfoLoad = 'skeleton w-20 h-2 m-2';
+const navSkeletonStudentInfoLoad = (width: number = 20) => `skeleton w-${width} h-4 m-1`;
 
 export type NavigationBarOptions = {
   options: Navigation;
@@ -29,13 +29,13 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
   return (
     <div className="flex">
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
-        <div>
-          <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={50} height={50}/>
+        <div className="items-center">
+          <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={60} height={60} isLoading={current_student.isLoading}/>
         </div>
-        <div>
-          { !user.details ? <div className={navSkeletonStudentInfoLoad}></div> : <p>{`${user.details?.first_name} ${user.details?.last_name}`}</p> }
-          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { current_student.student?.school?.name || '' } </p> }
-          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
+        <div className="flex flex-col gap-1 mt-4 mb-4 items-center">
+          { !user.details || current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p>{`${user.details?.first_name} ${user.details?.last_name}`}</p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(32)}></div> : <p> { current_student.student?.school?.name || '' } </p> }
+          { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { `Grade ${current_student.student?.grade}` || ''  } </p> }
         </div>
         { !input.options.loading ?
           <>

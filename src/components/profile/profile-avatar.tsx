@@ -14,6 +14,7 @@ export type ProfileAvatarType = {
             horizontal: 'right' | 'left' | 'center'; // Horizontal position of the badge
         };
     };
+    isLoading: boolean;
 }
 
 // Define default values for optional properties
@@ -41,6 +42,9 @@ const ProfileAvatar: React.FC<ProfileAvatarType> = (option: ProfileAvatarType) =
 
     return (
         <>
+          {
+            option.isLoading ? <div className={`skeleton w-${option.width} h-${option.height} rounded-full shrink-0`}></div> :
+            <>
             { option.src ?            
               <div className="avatar">
                 <div className={`w-${option.width} rounded-full`}>
@@ -54,6 +58,8 @@ const ProfileAvatar: React.FC<ProfileAvatarType> = (option: ProfileAvatarType) =
                 </div>
               </div> 
             }
+            </>
+          }
         </>
     );
 }
