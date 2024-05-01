@@ -31,7 +31,7 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
       <nav className="bg-primary w-[300px] h-screen p-5 drop-shadow-lg">
         <p className="text-center mb-3 mt-1">Learner Hub</p>
         <div className="text-center">
-          { (user.details || current_student.isLoading) && <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={60} height={60} isLoading={current_student.isLoading}/>}
+          { (user.details || current_student.isLoading) && <ProfileAvatar src={user.details?.profile?.picture?.url} name={user.details?.first_name || ''} width={120} height={120} isLoading={current_student.isLoading}/>}
         </div>
         <div className="flex flex-col gap-1 mt-4 mb-4 items-center">
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p>{ user.details?.first_name ? `${user.details?.first_name} ${user.details?.last_name}` : ""}</p> }
