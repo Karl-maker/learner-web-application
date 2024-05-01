@@ -4,6 +4,7 @@ import { UserAuthContext } from "@/app/template";
 import ProfileAvatar from "@/components/profile/profile-avatar";
 import useGetCurrentStudent from "@/hooks/student/get-current";
 import { Navigation } from "@/types/navigation";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
@@ -38,38 +39,37 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(32)}></div> : <p> { current_student.student?.school?.name || '' } </p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { current_student.student?.grade ? `Grade ${current_student.student?.grade}` : "" || ''  } </p> }
         </div>
-          <div className="flex flex-col gap-2">
+          <ul className="menu">
             {Object.entries(input.options.items).map(([key, value]) => {
               // Check if the item should be displayed
               if (value.auth && !user.authenticated) return null;
 
               const typeVal = value.t; // value.t is a number from 1 to 3 you can use to give different styles to conditionally. login is 3, account is 2 and all the rest are 1
               return (
-                <>
+                <li>
                 {
-                  !input.options.loading ?                 
-                    <div
-                      key={key}
-                      onClick={() => {
-                        if (value.action) value.action();
-                        if (value.path) route.push(value.path);
-                      }}
-                      className={`py-1 cursor-pointer flex justify-center border-solid border-white hover:bg-secondary hover:rounded hover:py-1 ${
-                        (input.options.current === key) && value.highlight
-                          ? "bg-secondary rounded py-1 drop-shadow-md"
-                          : "bg-primary border-solid border-white border rounded "
-                      }`}
-                    >
-                      <div>{value.t === 2 ? "TYPE @" : value.icon.active}</div>
-                      <span className="text-white font-bold py-2">{value.name}</span>
-                    </div> 
+                  !input.options.loading ?   
+                    <>
+                    {
+                      value.action === undefined ?
+                      <Link href={`${value.path}`}>
+                        { value.t === 1 ? value.icon.active : '&' }
+                        { value.name }
+                      </Link> 
+                      :
+                      <div onClick={() => value.action}>
+                        { value.t === 1 ? value.icon.active : '&' }
+                        { value.name }
+                      </div>
+                    }
+                    </>  
                     : 
                     <div className="skeleton h-12 w-full"></div>
                 }
-                </>
+                </li>
               );
             })}
-          </div>
+          </ul>
       </nav>
     </div>
   );
