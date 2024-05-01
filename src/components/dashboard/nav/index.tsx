@@ -39,7 +39,7 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(32)}></div> : <p> { current_student.student?.school?.name || '' } </p> }
           { current_student.isLoading ? <div className={navSkeletonStudentInfoLoad(16)}></div> : <p> { current_student.student?.grade ? `Grade ${current_student.student?.grade}` : "" || ''  } </p> }
         </div>
-          <ul className="menu">
+          <ul className="menu [&_li>*]:rounded-none">
             {Object.entries(input.options.items).map(([key, value]) => {
               // Check if the item should be displayed
               if (value.auth && !user.authenticated) return null;
@@ -52,12 +52,12 @@ const NavigationBar: React.FC<NavigationBarOptions> = (
                     <>
                     {
                       value.action === undefined ?
-                      <Link href={`${value.path}`}>
+                      <Link href={`${value.path}`} className='p-5 justify-center'>
                         { value.t === 1 ? value.icon.active : '&' }
                         { value.name }
                       </Link> 
                       :
-                      <div onClick={() => value.action}>
+                      <div onClick={() => value.action} className='p-5 justify-center'>
                         { value.t === 1 ? value.icon.active : '&' }
                         { value.name }
                       </div>
